@@ -23,6 +23,7 @@
     <div class="col-lg-8 ">
       <h1 class="pb-4">ACTIVIDADES DE NUESTRO GIMNASIO</h1>
       <div class="row">
+        <!-- Iconos sacados de https://www.flaticon.es/iconos-gratis/gimnasio --->
         <div class="col-lg p-3">
           <div class="txt_icons">Pilates</div>
           <img class="icons" src="assets/img/pilates.png" alt="imagen icono de pilates"></img>
@@ -70,4 +71,4 @@
       <img class="img_fondo mx-auto" src="assets/img/inicio2.jpg" alt="Imagen del gimnasio"></img>
     </div>
   </div>
-</div><!-- /.container-fluid -->
+</div>

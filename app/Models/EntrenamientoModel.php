@@ -25,6 +25,23 @@ class EntrenamientoModel extends \Com\Daw2\Core\BaseModel
 
         return $stmt->fetchAll();
     }
+    public function getaEjerciciosByIdEntrenamiento($idEntrenamiento)
+    {
+        $stmt = $this->db->prepare("SELECT Ejercicio.*
+        FROM Ejercicio
+        INNER JOIN Ejercicios_has_Entrenamientos ON ejercicio.idEjercicio = Ejercicios_has_Entrenamientos.idEjercicios
+        INNER JOIN Entrenamiento ON Ejercicios_has_Entrenamientos.idEntrenamiento = Entrenamiento.idEntrenamiento
+             WHERE Entrenamiento.idEntrenamiento = ? ");
+        $stmt->execute([$idEntrenamiento]);
+
+        $ejercicios = [];
+        while ($row = $stmt->fetch()) {
+            $ejercicio = $this->rowToEjercicio($row);
+            $ejercicios[] = $ejercicio;
+        }
+
+        return $ejercicios;
+    }
     private function rowToEntrenamiento(array $row)
     {
         $entrenamiento = new Entrenamiento($row['nombre'], $row['dia'], $row['entrenador'], $row['idEntrenamiento']);

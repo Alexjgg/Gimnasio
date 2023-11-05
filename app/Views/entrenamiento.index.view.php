@@ -1,16 +1,15 @@
 <div class="row">
     <div class="col-12">
-        <div class="card-success shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text">Entrenamiento</h6>
+        <div class="card shadow mb-4">
+            <div class="card-header card-header-asneves">
+                <h1 class="card-title card-title-h1">Entrenamiento</h1>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label>nombre</label>
                             <input type="text" class="form-control" id="search-input-1" name="nombre"
-                                placeholder="Nombre de usuario" value="" />
+                                placeholder="Nombre de Entrenamiento" value="" />
                         </div>
                     </div>
                 </div>
@@ -43,16 +42,18 @@
                             <td>
                                 <?php echo $entrenamiento->numEjercicios; ?>
                             </td>
-                            <td></td>
+                            <td><a class="btn btn-green"
+                                    href="./?controller=<?php echo $_GET['controller']; ?>&action=ver&idEntrenamiento=<?php echo $entrenamiento->idEntrenamiento; ?>">ver</a>
+                            </td>
                             <?php if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['rol'] == 'entrenador')) { ?>
-                                <td><a
+                                <td><a class="btn btn-blue"
                                         href="./?controller=<?php echo $_GET['controller']; ?>&action=asignarEntrenamiento&idEntrenamiento=<?php echo urlencode($entrenamiento->idEntrenamiento); ?>">Asignar
                                         clientes</a></td>
-                                <td><a
+                                <td><a class="btn btn-yellow"
                                         href="./?controller=<?php echo $_GET['controller']; ?>&action=edit&idEntrenamiento=<?php echo $entrenamiento->idEntrenamiento; ?>">Editar</a>
                                 </td>
 
-                                <td><a
+                                <td><a class="btn btn-red"
                                         href="./?controller=<?php echo $_GET['controller']; ?>&action=delete&idEntrenamiento=<?php echo urlencode($entrenamiento->idEntrenamiento); ?>">Eliminar</a>
                                 </td>
                             <?php } ?>

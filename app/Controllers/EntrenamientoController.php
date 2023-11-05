@@ -12,12 +12,14 @@ class EntrenamientoController extends \Com\Daw2\Core\BaseController
   //Los entrenamientos solo lo manejan entrenadores pero los clientes pueden ver su entrenamiento
   public function index()
   {
+    //Menu de crontol de los entrenadores
     if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['rol'] == 'entrenador')) {
       $_vars = array(
         'titulo' => 'Entrenamientos',
         'div_title' => 'Lista de Entrenamiento',
         'js' => array('assets/js/filtroUnaTabla.js'),
       );
+      //Cargamos los entrenamientos de el entrenador logeado
       $entrenamientoModel = new EntrenamientoModel();
       $entrenamientos = $entrenamientoModel->getAllEntrenamientosByIdCoach($_SESSION['usuario']['idDatosUsuario']);
 
@@ -30,6 +32,7 @@ class EntrenamientoController extends \Com\Daw2\Core\BaseController
         $datos[] = $entrenamientoObj;
       }
       $_vars['datos'] = $datos;
+      //Enviamos los entrenamientos como objectos para cargarlos en la view
       $this->view->showViews(array('templates/header.view.php', 'entrenamiento.index.view.php', 'templates/footer.view.php'), $_vars);
     } else {
       header('location: index.php');
@@ -39,6 +42,7 @@ class EntrenamientoController extends \Com\Daw2\Core\BaseController
 
   public function misEntrenamientos()
   {
+    //Mostramos los entrenamientos al cliente
     if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['rol'] == 'cliente')) {
       $entrenamientoModel = new EntrenamientoModel();
       $MisEntrenamientos = $entrenamientoModel->getEntrenamientosByIdClient((int) $_SESSION['usuario']['idDatosUsuario']);
@@ -56,8 +60,60 @@ class EntrenamientoController extends \Com\Daw2\Core\BaseController
         'datos' => $datos,
         'js' => array('assets/js/filtroUnaTabla.js'),
       );
-
+      //Enviamos los entrenamientos como objectos para cargarlos en la view
       $this->view->showViews(array('templates/header.view.php', 'entrenamiento.index.view.php', 'templates/footer.view.php'), $_vars);
+    }
+  }
+  public function ver()
+  {
+    //Cargamos un entrenamiento en concreto y lo mostramos
+    if (isset($_SESSION['usuario']) && (($_SESSION['usuario']['rol'] == 'entrenador') || ($_SESSION['usuario']['rol'] == 'cliente'))) {
+      $entrenamientoModel = new EntrenamientoModel();
+
+      $auxId = -1;
+      if (isset($_GET['idEntrenamiento'])) {
+        $auxId = (int) $_GET['idEntrenamiento'];
+      }
+      if (isset($_POST['idEntrenamiento'])) {
+        $auxId = (int) $_POST['idEntrenamiento'];
+      }
+      //Comprobamos el id del entrenamiento
+      $idEntrenamiento = $auxId;
+      //Comprobar si el usuario tiene este entrenamiento id 
+      $errores = true;
+      //compruebo si el cliente tiene este entrenamiento
+      if ($_SESSION['usuario']['rol'] == 'cliente') {
+        $entrenamientos = $entrenamientoModel->getEntrenamientosByIdClient((int) $_SESSION['usuario']['idDatosUsuario']);
+        foreach ($entrenamientos as $entrenamiento) {
+          if (in_array($idEntrenamiento, array_values($entrenamiento))) {
+            $errores = false;
+            break;
+          }
+        }
+      }
+      //compruebo si el entrenador tiene este entrenamiento
+      if ($_SESSION['usuario']['rol'] == 'entrenador') {
+        $entrenamientos = $entrenamientoModel->getAllEntrenamientosByIdCoach((int) $_SESSION['usuario']['idDatosUsuario']);
+        foreach ($entrenamientos as $entrenamiento) {
+          if (in_array($idEntrenamiento, array_values($entrenamiento))) {
+            $errores = false;
+            break;
+          }
+        }
+      }
+      //Cargamos los ejercicios del entrenamiento
+      if (!$errores) {
+        $allEjercicios = $entrenamientoModel->getaEjerciciosByIdEntrenamiento($idEntrenamiento);
+
+        $_vars = array(
+          'ejercicios' => $allEjercicios,
+        );
+        $this->view->showViews(array('templates/header.view.php', 'entrenamiento.individual.view.php', 'templates/footer.view.php'), $_vars);
+      } else {
+        header('location: index.php');
+      }
+    } else {
+      header('location: index.php');
     }
   }
   public function New()
@@ -88,9 +144,9 @@ class EntrenamientoController extends \Com\Daw2\Core\BaseController
         } else {
           $entrenamientoModel = new EntrenamientoModel();
           //sesion el id
-          $exito = $entrenamientoModel->insertEntrenamiento($_POST['dia'], $_POST['nombre'], $_SESSION['usuario']["idDatosUsuario"], json_decode($_POST["datosTabla"]));
+          $exito = $entrenamientoModel->insertEntrenamiento($_POST['nombre'], $_POST['dia'], $_SESSION['usuario']["idDatosUsuario"], json_decode($_POST["datosTabla"]));
           if ($exito) {
-            header('location: entrenamiento.index.view.php');
+            header('location: ?controller=entrenamiento&action=index');
           } else {
             $_vars['errors'] = array('nombre' => 'Error indeterminado al guardar');
           }

@@ -9,7 +9,6 @@ use Com\Daw2\Models\UsuarioModel;
 class UsuarioController extends \Com\Daw2\Core\BaseController
 {
     //listado/edit y delete de usuarios solo para admin
-    //aseignar un usuario a entrenador solo entrenadores
     public function index()
     {
         if (isset($_SESSION['usuario']) && ($_SESSION['usuario']['rol'] == 'admin')) {

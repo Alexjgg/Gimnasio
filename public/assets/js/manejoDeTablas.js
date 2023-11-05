@@ -11,6 +11,9 @@ function anadir(boton) {
     eliminarFila(this);
   };
 
+   // Agregar clase CSS al botón clonado
+   botonClonado.className = 'btn btn-red';
+
   // tabla
   var tabla = document.getElementById('table1');
 
@@ -39,10 +42,13 @@ function eliminarFila(boton) {
     var filaClonada = fila.cloneNode(true);
     // Cambiar la función del botón en la fila clonada
     var botonClonado = filaClonada.querySelector('button');
-    botonClonado.innerHTML = 'añadir';
+    botonClonado.innerHTML = 'Añadir';
     botonClonado.onclick = function() {
         anadir(this);
     };
+    
+    // Agregar clase CSS al botón clonado
+    botonClonado.className = 'btn btn-green';
   
     var tabla = document.getElementById('table2');
     tabla.appendChild(filaClonada);

@@ -1,9 +1,11 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <div class="card-success shadow mb-4">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h3 class="card-title">Nuevo Entrenamiento</h3>
+            <div class="card shadow mb-4">
+                <div class="card-header card-header-asneves">
+                    <h1 class="card-title card-title-h1">
+                        <?php echo $titulo; ?>
+                    </h1>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -113,7 +115,8 @@
                                                         <td>
                                                             <?php echo $ejercicio->getIdEjercicio(); ?>
                                                         </td>
-                                                        <td><button onclick="eliminarFila(this)">quitar</button></td>
+                                                        <td><button class="btn btn-red"
+                                                                onclick="eliminarFila(this)">Quitar</button></td>
                                                     </tr>
                                                     <?php
                                                 }
@@ -166,7 +169,8 @@
                                                     <td>
                                                         <?php echo $ejercicio->idEjercicio; ?>
                                                     </td>
-                                                    <td><button onclick="anadir(this)">Añadir</button></td>
+                                                    <td><button class="btn btn-green" onclick="anadir(this)">Añadir</button>
+                                                    </td>
                                                 </tr>
                                                 <?php
                                             }

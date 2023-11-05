@@ -16,6 +16,7 @@
 }
 /************************************/
 /* Ajustes generales*/
+
 * p{
     padding: 10px;
     font-size:1.3em;
@@ -70,6 +71,14 @@
     display: flex;
     width: 100%;
     align-items: stretch;
+}
+
+.card-title-h1{
+font-size: 35px;
+}
+.card-header-asneves{
+    background: #d0e5a3;
+    border: 1px #00000024 solid;
 }
 /************************************/
 /* Nav Superior*/
@@ -187,8 +196,10 @@ ul.mostrar{
     background-color: var(--second-color);
 }
 #sidebar li{
-    height: 40px;
-    padding: 5px;
+    height: 55px;
+    padding: 5px; display: flex;
+    align-items: center;
+    border-radius: 20px;
 }
 #sidebar li:hover{
     background-color: #566d56;
@@ -264,13 +275,60 @@ body {
     min-height: 38px;
     border-radius: 2px;
 }
-.btn {        
+.btn-green {
+    color: #f5f5f5;        
     font-size: 15px;
     font-weight: bold;
-    background-color: #34bfa3;
-    border-color: #34bfa3;
+    background-color: #9DBF54;
+    border-color: #9DBF54;
 }
-.btn:hover {
-    background-color: #2e978c;
-    border-color: #2e978c;
+.btn-green:hover {
+    color: #f5f5f5;
+    background-color: #566d56;
+    border-color: #566d56;
 }
+
+.btn-yellow {
+    color: #f5f5f5;        
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #bfba50;
+    border-color: #bfba50;
+}
+.btn-yellow:hover {
+    color: #f5f5f5;
+    background-color: #726f31;
+    border-color: #726f31;
+}
+.btn-red {
+    color: #f5f5f5;        
+    font-size: 15px;
+    font-weight: bold;
+    background-color: rgb(255, 67, 67);
+    border-color: rgb(255, 67, 67);
+    border-radius: 5px;
+}
+.btn-red:hover {
+    color: #f5f5f5;
+    background-color: rgb(172, 0, 0);
+    border-color: rgb(172, 0, 0);
+}
+
+.btn-blue {        
+    color: #f5f5f5;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #0079e1cf;
+    border-color: #0079e1cf;
+}
+.btn-blue:hover {
+    color: #f5f5f5;
+    background-color: #00498acf;
+    border-color: #00498acf;
+}
+/************************************/
+/* Entrenamiento ver*/
+.border-cards{
+    border-color: #d0e5a3;
+}
+/************************************/
